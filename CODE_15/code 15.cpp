@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+class Payment
+{
+public:
+    virtual void pay(double amount) const = 0;
+
+    virtual ~Payment() = default;
+};
+
+class CardPayment : public Payment
+{
+public:
+    void pay(double amount) const override
+    {
+        cout << "Paid Rs. " << amount << " using card" << endl;
+    }
+};
+
+class UpiPayment : public Payment
+{
+public:
+    void pay(double amount) const override
+    {
+        cout << "Paid Rs. " << amount << " using UPI" << endl;
+    }
+};
+
+class NetBankingPayment : public Payment
+{
+public:
+    void pay(double amount) const override
+    {
+        cout << "Paid Rs. " << amount << " using net banking" << endl;
+    }
+};
+
+class WalletPayment : public Payment
+{
+public:
+    void pay(double amount) const override
+    {
+        cout << "Paid Rs. " << amount << " using wallet" << endl;
+    }
+};
+
+void processPayment(const Payment& payment, double amount)
+{
+    payment.pay(amount);
+}
+
+int main()
+{
+    CardPayment card;
+    UpiPayment upi;
+    NetBankingPayment netBanking;
+    WalletPayment wallet;
+
+    processPayment(card, 1250.0);
+    processPayment(upi, 750.0);
+    processPayment(netBanking, 500.0);
+    processPayment(wallet, 300.0);
+
+    return 0;
+}
